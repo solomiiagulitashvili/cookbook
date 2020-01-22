@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import '../styles/main.scss';
+import RecipesList from './RecipesList';
+import AddRecipe from './AddRecipe';
 
 class App extends React.Component {
   render() {
     return (
-      <div>Hello World</div>
-    )
+      <>
+        <>
+          <h1 className="header">CookBook</h1>
+        </>
+        <div className="wrapper">
+          <RecipesList />
+          <AddRecipe />
+        </div>
+        <div />
+      </>
+    );
   }
 }
 
