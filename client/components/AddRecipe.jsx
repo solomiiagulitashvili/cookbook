@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter, Input,
 } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class AddRecipe extends React.Component {
   constructor(props) {
@@ -23,6 +24,29 @@ class AddRecipe extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  createRecipe = () => {
+    this.toggle();
+    const { title, ingredients, description } = this.state;
+    fetch('/api/recipes/', {
+      method: 'POST',
+      body: JSON.stringify({ title, ingredients, description }),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return;
+        }
+        throw new Error('err');
+      })
+      .then((recipe) => {
+        console.log(recipe);
+        const { getRecipes } = this.props;
+        getRecipes();
+      });
+  }
+
   render() {
     const {
       modal, title, ingredients, description,
@@ -38,7 +62,7 @@ class AddRecipe extends React.Component {
             <Input type="text" name="description" id="description" value={description} onChange={this.onInputChange} placeholder="Add description" />
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Add</Button>
+            <Button color="primary" onClick={this.createRecipe}>Add</Button>
             {' '}
             <Button color="secondary" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
@@ -49,3 +73,7 @@ class AddRecipe extends React.Component {
 }
 
 export default AddRecipe;
+
+AddRecipe.propTypes = {
+  getRecipes: PropTypes.func.isRequired,
+};

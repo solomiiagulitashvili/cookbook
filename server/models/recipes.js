@@ -8,6 +8,7 @@ const Recipe = new Schema({
   title: String,
   ingredients: String,
   description: String,
+  date: Date,
 });
 
 const recipe = mongoose.model('recipe', Recipe);

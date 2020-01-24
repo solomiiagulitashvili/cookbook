@@ -1,13 +1,17 @@
 import recipes from '../models/recipes';
 
 const createRecipe = (req, res) => {
-  const { title } = req.body;
+  const {
+    title, ingredients, description,
+  } = req.body;
 
   if (title && title.trim() === '') {
     return res.status(400).json({ msg: 'Add recipe title.' });
   }
 
-  recipes.create({ title }, (err) => {
+  recipes.create({
+    title, ingredients, description,
+  }, (err) => {
     if (err) {
       return res.status(500).json({ msg: err.message });
     }

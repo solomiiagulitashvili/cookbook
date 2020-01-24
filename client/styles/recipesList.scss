@@ -1,0 +1,13 @@
+.resipesList {
+  list-style: none;
+  li {
+    padding: 10px;
+    border: 1px solid #6c757d;
+    border-radius: 10px;
+    color: var(--gray);
+    margin-bottom: 8px;
+    h4 {
+      color: var(--gray-dark);
+    }
+  }
+}
